@@ -1,0 +1,48 @@
+<div class="grid grid-cols-2 m-auto" [ngClass]="{'dark-theme': isDarkTheme, 'light-theme': !isDarkTheme}">
+
+  <div class=" p-16 rounded-md" [ngStyle]="{
+    'background-color': isDarkTheme ? 'var(--bg-color-dark)' : 'var(--bg-color-light)',
+    'color': isDarkTheme ? 'var(--text-color-dark)' : 'var(--text-color-light)'
+  }">
+    <img src="../../assets/images/icon.png" alt="" class=" h-20 w-20 mb-8">
+    <h2 class="text-3xl font-light mb-4">Вход</h2>
+
+    <form (ngSubmit)="onSubmit()">
+      <div class="login-form" [formGroup]="SignData">
+        <div class="mb-4" >
+          <input type="email" name="Email" placeholder="info@mailaddress.com" class="border p-2 w-full rounded-xl"
+            formControlName="Email">
+            @if(!SignData.controls.Email.valid && SignData.controls.Email.touched){
+              <small class="text-red-500">Введите корректный email</small>
+            }
+        </div>
+
+        <div class="mb-4">
+          <input type="password" name="PasswordHash" placeholder="••••••••••••" class="border p-2 w-full rounded-xl"
+            formControlName="PasswordHash">
+            @if(!SignData.controls.PasswordHash.valid && SignData.controls.PasswordHash.touched){
+              <small class="text-red-500">Поле не должно быть пустое</small>
+            }
+        </div>
+
+        <div>
+          <input type="submit" value="Войти"
+            class="bg-gradient-to-r from-teal-400 to-teal-600 text-white p-2 rounded w-full" [disabled]="!SignData.valid">
+        </div>
+      </div>
+
+      <!-- <div class="text-red-500">
+        Пожалуйста, проверьте правильность заполнения формы.
+      </div> -->
+    </form>
+
+    <p class="mt-4">Нет аккаунта? <a href="#" class="text-teal-400">Зарегестрируйся</a></p>
+  </div>
+
+  <div class=" flex flex-col justify-center place-content-center pl-4" [ngStyle]="{
+    'background-color': isDarkTheme ? 'var(--right-b)' : 'var(--right-l)', }">
+    <h1 class="wellcome">Hello Friend!</h1>
+    <p class="wellcome">Enter your personal details and join us</p>
+  </div>
+
+</div>

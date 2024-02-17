@@ -1,0 +1,10 @@
+<div [ngClass]="{'dark-theme': isDarkTheme, 'light-theme': !isDarkTheme}" >
+<div  class="flex" [ngStyle]="{'background-color': isDarkTheme ? 'var( --bg-color-menu-dark)' : 'var(--bg-color-menu-light)','color': isDarkTheme ? 'var(--text-color-dark)' : 'va(--text-color-light)'
+}">
+  <app-header></app-header>
+  <div class="flex w-11/12 justify-center mt-3 place-items-center">
+    <router-outlet></router-outlet>
+  </div>
+  
+</div>
+</div>

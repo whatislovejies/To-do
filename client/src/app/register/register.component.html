@@ -1,0 +1,57 @@
+<div class="grid grid-cols-2 m-auto" [ngClass]="{'dark-theme': isDarkTheme, 'light-theme': !isDarkTheme}">
+
+  <!-- Левая часть: Регистрация -->
+  <div class=" p-16 rounded-md" [ngStyle]="{
+    'background-color': isDarkTheme ? 'var(--bg-color-dark)' : 'var(--bg-color-light)',
+    'color': isDarkTheme ? 'var(--text-color-dark)' : 'var(--text-color-light)'
+  }">
+    <img src="../../assets/images/icon.png" alt="" class=" h-20 w-20 mb-8">
+    <h2 class="text-3xl font-light mb-4">Регистрация</h2>
+
+    <form (ngSubmit)="registerUser()">
+      <div class="login-form" [formGroup]="registrationData">
+        <div class="mb-4">
+          <input type="text" name="FirstName" placeholder="Иван" class="border p-2 w-full rounded-xl" formControlName="FirstName">
+          @if(!registrationData.controls.FirstName.valid && registrationData.controls.FirstName.touched){
+            <small class="text-red-500">Это поле обязательно для заполнения</small>
+          }
+        </div>
+
+        <div class="mb-4">
+          <input type="text" name="LastName" placeholder="Петрович" class="border p-2 w-full rounded-xl" formControlName="LastName">
+          @if(!registrationData.controls.LastName.valid && registrationData.controls.LastName.touched){
+            <small class="text-red-500">Это поле обязательно для заполнения</small>
+          }
+        </div>
+
+        <div class="mb-4">
+          <input type="email" name="Email" placeholder="info@mailaddress.com" class="border p-2 w-full rounded-xl" formControlName="Email">
+          @if(!registrationData.controls.Email.valid && registrationData.controls.Email.touched){
+            <small class="text-red-500">Введите корректный email</small>
+          }
+        </div>
+
+        <div class="mb-4">
+          <input type="password" name="PasswordHash" placeholder="••••••••••••" class="border p-2 w-full rounded-xl" formControlName="PasswordHash">
+          @if(!registrationData.controls.PasswordHash.valid && registrationData.controls.PasswordHash.touched){
+            <small class="text-red-500">Это поле обязательно для заполнения</small>
+          }
+        </div>
+
+        <div>
+          <button class="bg-gradient-to-r from-teal-400 to-teal-600 text-white p-2 rounded w-full" [disabled]="!registrationData.valid">Зарегестрироваться</button>
+        </div>
+      </div>
+
+    </form>
+
+    <p class="mt-4">Есть аккаунт? <a href="#" class="text-teal-400">Войти</a></p>
+  </div>
+
+  <div class=" flex flex-col justify-center place-content-center pl-4" [ngStyle]="{
+    'background-color': isDarkTheme ? 'var(--right-b)' : 'var(--right-l)', }">
+    <h1 class="wellcome">Hello Friend!</h1>
+    <p class="wellcome">Enter your personal details and join us</p>
+  </div>
+
+</div>

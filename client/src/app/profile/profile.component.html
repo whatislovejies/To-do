@@ -1,0 +1,19 @@
+<div *ngFor="let user of users" class="user-container" [ngClass]="{'dark-theme': isDarkTheme, 'light-theme': !isDarkTheme}">
+    <div (click)="selectUser(user.id)" class="user-info p-4 bg-gray-200 border border-gray-300 cursor-pointer" [ngStyle]="{
+        'background-color': isDarkTheme ? 'var(--bg-color-dark)' : 'var(--bg-color-light)',
+        'color': isDarkTheme ? 'var(--text-color-dark)' : 'var(--text-color-light)'
+      }">
+      {{ user.firstName }} {{ user.lastName }}
+    </div>
+    <div *ngIf="selectedUserId === user.id" class="user-edit mt-4" >
+      <input [(ngModel)]="user.firstName" placeholder="First Name" class="input-field border px-3 py-2 rounded" [ngStyle]="{
+        'background-color': isDarkTheme ? 'var(--bg-color-dark)' : 'var(--bg-color-light)'}">
+      <input [(ngModel)]="user.lastName" placeholder="Last Name" class="input-field border  px-3 py-2 rounded" [ngStyle]="{
+        'background-color': isDarkTheme ? 'var(--bg-color-dark)' : 'var(--bg-color-light)'}">
+      <input [(ngModel)]="user.email" placeholder="Email" class="input-field border  px-3 py-2 rounded" [ngStyle]="{
+        'background-color': isDarkTheme ? 'var(--bg-color-dark)' : 'var(--bg-color-light)'}">
+
+      <button (click)="updateUser(user.id)" class="update-button bg-green-500 text-white px-4 py-2 rounded mt-2">Update</button>
+    </div>
+  </div>
+  

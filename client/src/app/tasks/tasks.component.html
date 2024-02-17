@@ -1,0 +1,75 @@
+<!-- <div class="w-full bg-white rounded p-4 shadow" [ngClass]="{'dark-theme': isDarkTheme, 'light-theme': !isDarkTheme}" [ngStyle]="{
+  'background-color': isDarkTheme ? 'var(--bg-color-dark)' : 'var(--bg-color-light)',
+  'color': isDarkTheme ? 'var(--text-color-dark)' : 'var(--text-color-light)'
+}">
+  <h1 class="text-2xl font-bold mb-4">Список дел</h1>
+
+  <form class="mb-4" >
+    <div class="flex items-center">
+      <input type="text" class="flex-1 border p-2 mr-2" placeholder="Добавить задачу">
+      <button type="submit" class="bg-blue-500 text-white p-2 rounded">Добавить</button>
+    </div>
+  </form>
+
+
+  <div class=" p-4 rounded" [ngStyle]="{'background-color': isDarkTheme ? 'var( --bg-color-menu-dark)' : 'var(--bg-color-menu-light)','color': isDarkTheme ? 'var(--text-color-dark)' : 'va(--text-color-light)'
+}">
+
+    <div *ngFor="let taskList of data" class=" p-2 mb-2 rounded">
+      <h2 class="text-lg font-bold mb-2">{{ taskList.title }}</h2>
+
+      <div *ngFor="let taskItem of taskList.tasks" class="flex items-center">
+        <input type="checkbox" class="mr-2" [checked]="taskItem.isCompleted">
+        <span>{{ taskItem.description }}</span>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+
+<form class="mb-4" (ngSubmit)="createTheme()" >
+  <div class="flex items-center">
+    <input type="text" class="flex-1 border p-2 mr-2" placeholder="Добавить тему" name="name" [(ngModel)]="ThemeData.Name">
+    <button type="submit" class="bg-blue-500 text-white p-2 rounded">Добавить</button>
+  </div>
+</form>
+
+
+<div class="root" [ngClass]="{'dark-theme': isDarkTheme, 'light-theme': !isDarkTheme}">
+  <div class="board">
+    <div class="board-wrapper">
+      <div class="board-columns">
+        <div cdkDropList cdkDropListOrientation="horizontal" class="board-columns" (cdkDropListDropped)="dropGrid($event)">
+          <div cdkDragLockAxis="x" class="board-column" *ngFor="let column of board.columns" cdkDrag [ngStyle]="{'background-color': isDarkTheme ? 'var( --bg-color-dark)' : 'var(--bg-color-light)','color': isDarkTheme ? 'var(--text-color-dark)' : 'va(--text-color-light)'}">
+            <div class="column-title" cdkDragHandle>
+              <ng-container *ngIf="!column.editMode; else editModeTemplate">
+                {{ column.name }}
+                <mat-icon (click)="toggleEditMode(column)">edit</mat-icon>
+              </ng-container>
+            
+              <ng-template #editModeTemplate>
+                <input [(ngModel)]="column.name" (blur)="exitThemeEditMode(column)" />
+                <mat-icon (click)="saveColumnName(+column.id, column)">save</mat-icon>
+                <mat-icon (click)="toggleEditMode(column)">cancel</mat-icon>
+              </ng-template>
+        
+              <!-- Добавлено условие для отображения значка удаления только если нет задач -->
+              <mat-icon *ngIf="column.tasks.length === 0" (click)="openDeleteDialogTheme(+column.id,column)">delete</mat-icon>
+            </div>
+           
+            <button mat-raised-button (click)="openDialog(column.id)">+</button>
+          
+            <div class="tasks-container" id="{{ column.id }}" [cdkDropListConnectedTo]="['21', '32']" cdkDropList [cdkDropListData]="column.tasks" (cdkDropListDropped)="drop($event)" style="max-height: 300px; overflow-y: auto;">
+              <div class="task" *ngFor="let item of column.tasks" cdkDrag [ngStyle]="{'background-color': isDarkTheme ? 'var(--bg-color-menu-dark)' : 'var(--bg-color-menu-light)','color': isDarkTheme ? 'var(--text-color-dark)' : 'va(--text-color-light)'}">
+                {{ item.title }}
+                <mat-icon (click)="editTask(column.id.toString(), item)">edit</mat-icon>
+                <mat-icon (click)="openDeleteDialogTask(column.id.toString(), item)">delete</mat-icon>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

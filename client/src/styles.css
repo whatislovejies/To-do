@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.dark-theme {
+  --bg-color-menu-dark: #313131;
+  --bg-color-dark: #1a1a1a;
+  --text-color-dark: #ffffff;
+  --hover-bg-color: #f72e82;
+  --right-b:#2c2c2c;
+}
+
+.light-theme {
+  --bg-color-light: #ffffff;
+  --bg-color-menu-light: #d3d3d3;
+  --text-color-light: #333333;
+  --hover-bg-color: #2b7fb8;
+  --right-l:#aaaaaa;
+
+}
+
+.dark-theme a:hover,
+.light-theme a:hover {
+  background-color: var(--hover-bg-color);
+}
+
+html, body {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+.mdc-dialog__container {
+  margin-top: -800px;
+  margin-left: 200px;
+  width: 500px;
+  height: 500px;
+}
